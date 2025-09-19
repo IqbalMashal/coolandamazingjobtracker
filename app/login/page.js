@@ -75,11 +75,11 @@ export default function Login() {
   };
 
   return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-white from-white to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md mx-auto">
           {/* Header */}
           <div className="text-center mb-8">
-            <div className="mx-auto h-16 w-16 bg-blue-600 rounded-full flex items-center justify-center mb-4">
+            <div className="mx-auto h-16 w-16 bg-black rounded-full flex items-center justify-center mb-4">
               <Shield className="h-8 w-8 text-white" />
             </div>
             <h2 className="text-3xl font-bold text-gray-900">Welcome Back</h2>
