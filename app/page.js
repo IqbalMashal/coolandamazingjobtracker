@@ -1,6 +1,5 @@
 "use client";
-import { BentoGridItem } from "@/components/ui/bento-grid";
-import Navbar from "./_components/Navbar";
+import Link from 'next/link'
 
 
 import { motion } from "motion/react";
@@ -9,7 +8,7 @@ import FeatureBentoGrid from "./_components/FeaturesBentoGrid";
 export default function HeroSectionOne() {
   return (
     <div
-      className="relative my-10 flex w-screen flex-col items-center justify-center">
+      className="relative my-10 flex w-full flex-col items-center justify-center">
       <div
         className="absolute inset-y-0 left-0 h-full w-px bg-neutral-200/80 dark:bg-neutral-800/80">
       <div
@@ -72,10 +71,12 @@ export default function HeroSectionOne() {
             delay: 1,
           }}
           className="relative z-10 mt-8 flex flex-wrap items-center justify-center gap-4">
-          <button
-            className="w-60 transform rounded-lg bg-black px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">
-            Get Started
-          </button>
+          <Link href={"/signup"}>
+            <button
+              className="w-60 transform rounded-lg bg-black px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200 cursor-pointer">
+              Get Started
+            </button>
+          </Link>
         </motion.div>
         <motion.div
           initial={{
