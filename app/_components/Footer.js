@@ -1,6 +1,6 @@
 import React from "react"
 import Link from "next/link"
-import { Github, Linkedin, Briefcase, Mail } from "lucide-react"
+import { Github, Briefcase, Mail } from "lucide-react"
 
 function Footer() {
   return (
@@ -86,22 +86,13 @@ function Footer() {
               <p className="text-sm font-medium">Connect with the Developers</p>
               <div className="flex space-x-3">
                 <Link
-                  href="https://github.com/IqbalMashal"
+                  href="https://github.com/IqbalMashal/coolandamazingjobtracker"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center w-9 h-9 bg-white text-black hover:bg-gray-200 rounded-lg transition-colors"
                   aria-label="GitHub"
                 >
                   <Github className="w-5 h-5" />
-                </Link>
-                <Link
-                  href="https://linkedin.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center w-9 h-9 bg-white text-black hover:bg-gray-200 rounded-lg transition-colors"
-                  aria-label="LinkedIn"
-                >
-                  <Linkedin className="w-5 h-5" />
                 </Link>
               </div>
             </div>

@@ -90,17 +90,18 @@ export default function SignUp() {
     try {
       await registerUser(sanitizedData);
       router.push("/login");
+      console.error("inside the register")
     } catch (err) {
       setSubmitError(err.message);
     }
   };
 
   return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-white from-blue-50 via-white to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md mx-auto">
           {/* Header */}
           <div className="text-center mb-8">
-            <div className="mx-auto h-16 w-16 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full flex items-center justify-center mb-4 shadow-lg">
+            <div className="mx-auto h-16 w-16 bg-black from-blue-600 to-indigo-600 rounded-full flex items-center justify-center mb-4 shadow-lg">
               <Shield className="h-8 w-8 text-white" />
             </div>
             <h2 className="text-3xl font-bold text-gray-900 mb-2">Create Your Account</h2>
@@ -351,7 +352,7 @@ export default function SignUp() {
                 className={`w-full py-3 px-4 rounded-xl font-semibold text-white shadow-lg transition-all duration-200 transform ${
                   isSubmitting 
                     ? 'bg-gray-400 cursor-not-allowed' 
-                    : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0'
+                    : 'bg-black from-blue-600 to-indigo-600 hover:from-black-100 hover:to-gray-700 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0'
                 }`}
               >
                 {isSubmitting ? (
@@ -372,7 +373,7 @@ export default function SignUp() {
                 Already have an account? 
                 <Link
                     href={"/login"}
-                    className="font-semibold text-blue-600 hover:text-blue-500 ml-1 transition-colors">
+                    className="font-semibold text-gray-600 hover:text-gray-500 ml-1 transition-colors">
                   Sign in
                 </Link>
               </p>

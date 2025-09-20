@@ -193,7 +193,7 @@ export default function Login() {
                   className={`w-full py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-semibold text-white transition-all duration-200 ${
                     isSubmitting 
                       ? 'bg-gray-400 cursor-not-allowed' 
-                      : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transform hover:scale-[1.02]'
+                      : 'bg-black from-gray-600 to-gray-500 hover:from-gray-700 hover:to-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transform hover:scale-[1.02]'
                   }`}
                 >
                   {isSubmitting ? (
@@ -222,8 +222,8 @@ export default function Login() {
               </div>
               <p className="mt-4">
                 <Link 
-                  href="/register" 
-                  className="font-semibold text-blue-600 hover:text-blue-500 transition-colors duration-200"
+                  href="/signup" 
+                  className="font-semibold text-black hover:text-gray-500 transition-colors duration-200"
                 >
                   Create your account →
                 </Link>
