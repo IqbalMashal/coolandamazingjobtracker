@@ -3,7 +3,7 @@ import { useRouter, usePathname, useSearchParams, notFound } from 'next/navigati
 import { useState, useEffect } from 'react';
 import { isAuthenticated } from '@/lib/authenticate';
 
-const PUBLIC_PATHS = ['/login', '/signup', '/', '/_error'];
+const AUTHENTICATED_PATHS = ['/dashboard'];
 
 export default function RouteGuard(props) {
   const router = useRouter();
@@ -15,19 +15,19 @@ export default function RouteGuard(props) {
     // check path on initial load and on change
     const url = `${pathname}?${searchParams}`
 
-    authCheck(url);
-  }, [pathname, searchParams]);
-
-  function authCheck(url) {
-    // redirect to login page if accessing a private page and not logged in
-    const path = url.split('?')[0];
-    if (!isAuthenticated() && !PUBLIC_PATHS.includes(path)) {
-        setAuthorized(false);
-        router.push('/login');
-    } else {
-        setAuthorized(true);
+    function authCheck(url) {
+      // redirect to login page if accessing a private page and not logged in
+      const path = url.split('?')[0];
+      if (!isAuthenticated() && AUTHENTICATED_PATHS.includes(path)) {
+          setAuthorized(false);
+          router.push('/login');
+      } else {
+          setAuthorized(true);
+      }
     }
-  }
+
+    authCheck(url);
+  }, [pathname, searchParams, router]);
 
   return <>{authorized && props.children}</>
 }

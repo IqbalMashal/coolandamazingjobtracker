@@ -1,9 +1,9 @@
 "use client"
 
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { useForm } from "react-hook-form";
 import { Mail, Lock, Eye, EyeOff, Shield, AlertCircle, CheckCircle } from "lucide-react";
-import { authenticateUser } from "@/lib/authenticate";
+import { authenticateUser, readToken } from "@/lib/authenticate";
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
 
@@ -41,7 +41,14 @@ export default function Login() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const router = useRouter() 
+  const router = useRouter();
+  let token = readToken();
+
+  useEffect(() => {
+    if (token) {
+      router.push('/dashboard');
+    }
+  }, [router, token]);
 
   const {
     register,
@@ -73,7 +80,6 @@ export default function Login() {
       setIsSubmitting(false);
     }
   };
-
   return (
       <div className="min-h-screen bg-white from-white to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md mx-auto">
