@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { checkUser } from "@/lib/mongodb"
+import { checkUser } from "@/lib/userService"
 const jwt = require('jsonwebtoken');
 
 export async function POST(request) {

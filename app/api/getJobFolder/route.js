@@ -1,6 +1,5 @@
-// /api/user/route.js
 import { NextResponse } from "next/server";
-import { getUser } from "@/lib/userData";
+import { getUserJobFolders } from "@/lib/jobFolderData";
 
 export async function GET(request) {
   try {
@@ -11,10 +10,10 @@ export async function GET(request) {
       return NextResponse.json({ error: "User ID is required" }, { status: 400 });
     }
 
-    const user = await getUser(userID);
-    return NextResponse.json(user);
+    const folders = await getUserJobFolders(userID);
+    return NextResponse.json(folders);
   } catch (error) {
-    console.error("Error fetching user:", error);
-    return NextResponse.json({ error: "Failed to fetch user data" }, { status: 500 });
+    console.error("Error fetching job folders:", error);
+    return NextResponse.json({ error: "Failed to fetch folders" }, { status: 500 });
   }
 }

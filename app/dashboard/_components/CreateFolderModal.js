@@ -3,37 +3,51 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { v4 as uuidv4 } from "uuid";
 import { X, Folder, Plus } from "lucide-react";
+import { readToken } from "@/lib/authenticate";
 
-export default function CreateFolderModal({ isOpen, onClose, onCreateFolder }) {
+export default function CreateFolderModal({ isOpen, onClose }) {
   const [folderName, setFolderName] = useState("");
   const [description, setDescription] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!folderName.trim()) return;
 
-    const colors = [
-      "bg-blue-50 border-blue-200",
-      "bg-green-50 border-green-200", 
-      "bg-purple-50 border-purple-200",
-      "bg-orange-50 border-orange-200",
-      "bg-pink-50 border-pink-200",
-      "bg-yellow-50 border-yellow-200",
-      "bg-indigo-50 border-indigo-200",
-      "bg-teal-50 border-teal-200",
-    ];
+    const token = readToken();
+    if (!token?.id) {
+      console.error("Token missing or invalid");
+      return;
+    }
 
-    const newFolder = {
-      id: Date.now().toString(),
-      name: folderName,
-      description: description,
-      jobCount: 0,
-      color: colors[Math.floor(Math.random() * colors.length)],
-      createdAt: new Date().toISOString().split('T')[0],
-    };
+    const jobFolderID = uuidv4();
 
-    onCreateFolder(newFolder);
+    try {
+      const response = await fetch("/api/addJobFolder", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: jobFolderID,
+          name: folderName,
+          description,
+          userId: token.id,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        console.error(result.message || "Failed to create folder");
+      } else {
+        console.log("Folder created:", result);
+      }
+    } catch (err) {
+      console.error("Error calling API:", err);
+    }
+
     setFolderName("");
     setDescription("");
     onClose();
@@ -50,7 +64,6 @@ export default function CreateFolderModal({ isOpen, onClose, onCreateFolder }) {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-xl shadow-2xl w-full max-w-md mx-4">
-        {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-black rounded-lg">
@@ -67,7 +80,6 @@ export default function CreateFolderModal({ isOpen, onClose, onCreateFolder }) {
           </Button>
         </div>
 
-        {/* Body */}
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -75,11 +87,9 @@ export default function CreateFolderModal({ isOpen, onClose, onCreateFolder }) {
             </label>
             <Input
               type="text"
-              placeholder="e.g., Software Engineer, Marketing, Data Science"
+              placeholder="e.g., Software Engineer, Marketing"
               value={folderName}
               onChange={(e) => setFolderName(e.target.value)}
-              className="w-full border-gray-300 focus:border-black focus:ring-black"
-              autoFocus
               required
             />
           </div>
@@ -90,38 +100,12 @@ export default function CreateFolderModal({ isOpen, onClose, onCreateFolder }) {
             </label>
             <Input
               type="text"
-              placeholder="Brief description of this job category"
+              placeholder="Brief description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="w-full border-gray-300 focus:border-black focus:ring-black"
             />
           </div>
 
-          {/* Examples */}
-          <div className="bg-gray-50 rounded-lg p-4">
-            <h4 className="text-sm font-medium text-gray-700 mb-2">Popular Categories:</h4>
-            <div className="flex flex-wrap gap-2">
-              {[
-                "Software Engineer",
-                "Product Manager", 
-                "Data Science",
-                "Marketing",
-                "Design",
-                "Sales"
-              ].map((example) => (
-                <button
-                  key={example}
-                  type="button"
-                  onClick={() => setFolderName(example)}
-                  className="text-xs px-3 py-1 bg-white border border-gray-200 rounded-full hover:bg-gray-100 transition-colors"
-                >
-                  {example}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Footer */}
           <div className="flex gap-3 pt-4">
             <Button
               type="submit"

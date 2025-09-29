@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import {registerUser} from "@/lib/mongodb"
+import {registerUser} from "@/lib/userService"
 
 // Handle CORS for preflight requests
 export async function OPTIONS(request) {
